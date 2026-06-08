@@ -1,0 +1,44 @@
+.productsListContainer {
+
+}
+
+.cardsContainer {
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    column-gap: 40px;
+    justify-items: center;
+}
+
+.productCard {
+
+}
+
+.productCardTitle {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+}
+
+.productCardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.productCardDescription {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+.productButton {
+    width: 100%;
+}
+
+.spinnerContainer {
+    margin-top: 4rem;
+}
