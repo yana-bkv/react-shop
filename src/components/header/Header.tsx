@@ -1,15 +1,15 @@
 import classes from './Header.module.css';
 import Button from "react-bootstrap/Button";
 
-interface ProductCartDrawerIsOpen {
-    handleOpen: () => void
+interface HeaderProps {
+    handleOpenCartDrawer: () => void
 }
 
-function Header({handleOpen }: ProductCartDrawerIsOpen) {
+function Header({handleOpenCartDrawer }: HeaderProps) {
     return (
         <div className={classes.header}>
             <h2 className={classes.headerLogo}>Shop.com</h2>
-            <Button variant="outline-warning" className={classes.headerCart} onClick={handleOpen}>
+            <Button variant="outline-warning" className={classes.headerCart} onClick={handleOpenCartDrawer}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                      className="bi bi-cart3" viewBox="0 0 16 16">
                   <path
