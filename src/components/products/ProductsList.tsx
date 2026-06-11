@@ -1,20 +1,13 @@
 import classes from './Products.module.css';
 import ProductCard from "./ProductCard.tsx";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {Spinner} from "react-bootstrap";
-
-interface ProductItem {
-    id: number,
-    title: string,
-    description: string,
-    price: number,
-    image: string,
-    isInCart: boolean
-}
+import {ProductsCartContext} from "../../context/cartContext/ProductsCartContext.tsx";
+import type {ProductItem} from "./products.types.ts";
 
 function ProductsList() {
     const [products, setProducts] = useState<ProductItem[]>([])
-    const [productsIdsInCart, setProductsIdsInCart] = useState<number[]>([])
+    const {productsIdsInCart, addProductIdsToCart, removeProductIdsFromCart } = useContext(ProductsCartContext)
     const [spinner, setSpinner] = useState<boolean>(false)
 
     console.table(products);
@@ -26,7 +19,8 @@ function ProductsList() {
             const res = await fetch('https://fakestoreapi.com/products')
 
             if (!res.ok) {
-                throw new Error('HTTP error')
+                console.error('HTTP error ', res.status)
+                return
             }
             const data = await res.json() as ProductItem[]
             setProducts(data.map(p => ({...p, isInCart: false})))
@@ -43,10 +37,7 @@ function ProductsList() {
 
 
     function addToCart(id: number) {
-        const isFoundId = productsIdsInCart.some(productId => productId === id);
-        if (!isFoundId) {
-            setProductsIdsInCart([...productsIdsInCart, id])
-        }
+        addProductIdsToCart(id)
 
         setProducts(products =>
             products.map(p =>
@@ -58,7 +49,7 @@ function ProductsList() {
     }
 
     function removeFromCart(id: number) {
-        setProductsIdsInCart(productsIdsInCart.filter(productId => productId !== id))
+        removeProductIdsFromCart(id)
 
         setProducts(products =>
             products.map(product =>
